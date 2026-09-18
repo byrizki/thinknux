@@ -1,0 +1,100 @@
+/* ThinkNux Custom Styling - ThinkPad Inspired Design */
+
+@define-color thinkpad_red #e2231a;
+@define-color thinkpad_accent alpha(#e2231a, 0.85);
+
+.thinkpad-red {
+    color: @thinkpad_red;
+}
+
+.metric-card {
+    background-color: alpha(@card_bg_color, 0.7);
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid alpha(@borders, 0.5);
+    transition: all 200ms ease;
+}
+
+.metric-card:hover {
+    border-color: alpha(@thinkpad_red, 0.5);
+}
+
+.metric-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: alpha(@window_fg_color, 0.7);
+}
+
+.metric-value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.metric-subtitle {
+    font-size: 0.75rem;
+    color: alpha(@window_fg_color, 0.6);
+}
+
+.badge-status {
+    border-radius: 9999px;
+    padding: 3px 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: alpha(#2ec27e, 0.2);
+    color: #2ec27e;
+}
+
+.badge-warning {
+    background-color: alpha(#e5a50a, 0.2);
+    color: #e5a50a;
+}
+
+.badge-danger {
+    background-color: alpha(#e2231a, 0.2);
+    color: #e2231a;
+}
+
+.curve-editor-container {
+    background-color: alpha(@window_bg_color, 0.5);
+    border: 1px solid alpha(@borders, 0.8);
+    border-radius: 8px;
+}
+
+/* Compact layout adjustments */
+preferencesgroup > box {
+    margin-top: 4px;
+}
+
+preferencesgroup > box > label {
+    margin-bottom: 2px;
+}
+
+actionrow, spinrow, comborow, switchrow {
+    min-height: 38px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.navigation-sidebar {
+    background: transparent;
+}
+
+.navigation-sidebar row {
+    min-height: 42px;
+    min-width: 42px;
+    padding: 0;
+    margin: 3px 4px;
+    border-radius: 8px;
+    transition: background-color 150ms ease;
+}
+
+.navigation-sidebar row:selected {
+    background-color: alpha(@accent_color, 0.2);
+    color: @accent_color;
+}
+

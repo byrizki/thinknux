@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thinknux"
+version = "0.1.0"
+description = "Native GTK4 + Libadwaita ThinkPad hardware management utility for Linux (inspired by ThinkUtils)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "LGPL-3.0" }
+authors = [
+    { name = "Muhamad Rizki" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: X11 Applications :: GTK",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Hardware",
+]
+dependencies = [
+    "psutil>=5.9.0",
+    "pycairo>=1.20.0",
+    "PyGObject>=3.42.0",
+]
+
+[project.scripts]
+thinknux = "thinknux.main:main"
+
+[tool.setuptools.packages.find]
+include = ["thinknux*"]

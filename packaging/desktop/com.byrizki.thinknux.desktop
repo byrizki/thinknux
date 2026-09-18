@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=ThinkNux
+GenericName=ThinkPad Hardware Manager
+Comment=Native Linux Fan, Battery, CPU, and System Management for ThinkPads (inspired by ThinkUtils)
+Exec=thinknux %U
+Icon=com.byrizki.thinknux
+Terminal=false
+Categories=Utility;Settings;HardwareSettings;System;
+StartupNotify=true
+StartupWMClass=com.byrizki.thinknux
+Keywords=thinkpad;fan;battery;cooling;cpu;governor;clamav;

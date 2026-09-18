@@ -1,0 +1,20 @@
+/* ThinkNux: passwordless fan control via the dedicated helper only.
+ *
+ * Grants execution of thinknux-fan-control to local active sessions in wheel or sudo.
+ */
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.policykit.exec") {
+        var program = action.lookup("program");
+        if (
+            program == "/usr/lib/thinknux/thinknux-fan-control" ||
+            program == "/usr/libexec/thinknux/thinknux-fan-control" ||
+            program == "/usr/local/bin/thinknux-fan-control"
+        ) {
+            /* Local, active sessions only: SSH sessions must not inherit hardware control */
+            if (subject.local && subject.active &&
+                (subject.isInGroup("wheel") || subject.isInGroup("sudo"))) {
+                return polkit.Result.YES;
+            }
+        }
+    }
+});
