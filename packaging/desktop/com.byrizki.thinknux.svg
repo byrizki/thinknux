@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c2d30" />
+      <stop offset="100%" stop-color="#141517" />
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff3b30" />
+      <stop offset="100%" stop-color="#c10808" />
+    </linearGradient>
+    <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f5f7" />
+      <stop offset="100%" stop-color="#b0b3b8" />
+    </linearGradient>
+    <radialGradient id="dotGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff5252" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#e00000" stop-opacity="0" />
+    </radialGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <!-- Base squircle -->
+  <rect x="8" y="8" width="112" height="112" rx="26" ry="26" fill="url(#bgGrad)" stroke="#3f4145" stroke-width="2" filter="url(#dropShadow)" />
+
+  <!-- Subtle inner edge highlight -->
+  <rect x="10" y="10" width="108" height="108" rx="24" ry="24" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1" />
+
+  <!-- Fan blades (Cooling motif) -->
+  <g transform="translate(64, 64)" fill="url(#bladeGrad)">
+    <!-- Outer ring outline -->
+    <circle cx="0" cy="0" r="38" fill="none" stroke="#484b51" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.6" />
+
+    <!-- 4 aerodynamic curved fan blades -->
+    <path d="M -6,-9 C -9,-30 -2,-42 12,-38 C 22,-35 18,-18 5,-8 Z" />
+    <path d="M 9,-6 C 30,-9 42,-2 38,12 C 35,22 18,18 8,5 Z" />
+    <path d="M 6,9 C 9,30 2,42 -12,38 C -22,35 -18,18 -5,8 Z" />
+    <path d="M -9,6 C -30,9 -42,2 -38,-12 C -35,-22 -18,-18 -8,-5 Z" />
+
+    <!-- Hub circle background -->
+    <circle cx="0" cy="0" r="16" fill="#1e1f22" stroke="#424449" stroke-width="2" />
+
+    <!-- TrackPoint red dot glow and center button -->
+    <circle cx="0" cy="0" r="14" fill="url(#dotGlow)" />
+    <circle cx="0" cy="0" r="9.5" fill="url(#redGrad)" filter="url(#dropShadow)" />
+    <!-- TrackPoint dome texture highlight -->
+    <ellipse cx="-2.5" cy="-2.5" rx="3.5" ry="2" fill="#ffffff" fill-opacity="0.35" transform="rotate(-30 -2.5 -2.5)" />
+  </g>
+
+  <!-- ThinkPad accent stripes in bottom right -->
+  <g opacity="0.3" transform="translate(94, 94)">
+    <line x1="0" y1="12" x2="12" y2="0" stroke="#ff3b30" stroke-width="2" stroke-linecap="round" />
+  </g>
+</svg>

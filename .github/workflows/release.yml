@@ -1,0 +1,83 @@
+name: Release ThinkNux
+
+on:
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag to upload to (e.g. v0.1.0). Leave empty to only build and test artifact.'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Release Debian Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install system build & runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            dpkg-dev \
+            python3-gi \
+            python3-gi-cairo \
+            python3-cairo \
+            gir1.2-gtk-4.0 \
+            gir1.2-adw-1 \
+            python3-psutil
+
+      - name: Run automated test suite
+        run: |
+          python3 -m unittest discover -s tests -p "test_*.py" -v
+
+      - name: Determine package version
+        id: get_version
+        run: |
+          if [ -n "${{ inputs.release_tag }}" ]; then
+            RAW_VERSION="${{ inputs.release_tag }}"
+          elif [ "${{ github.event_name }}" = "release" ]; then
+            RAW_VERSION="${{ github.event.release.tag_name }}"
+          elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            RAW_VERSION="${{ github.ref_name }}"
+          else
+            RAW_VERSION=$(grep -m 1 '^version = ' pyproject.toml | sed -E 's/version = "(.*)"/\1/')
+          fi
+          # Strip leading 'v'
+          VERSION="${RAW_VERSION#v}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Building ThinkNux version: ${VERSION}"
+
+      - name: Build Debian Package (.deb)
+        run: |
+          chmod +x scripts/build_deb.sh
+          ./scripts/build_deb.sh "${{ steps.get_version.outputs.version }}"
+
+      - name: Upload Debian package as workflow artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: thinknux-${{ steps.get_version.outputs.version }}-deb
+          path: dist/*.deb
+          if-no-files-found: error
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v3
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
+        with:
+          tag_name: ${{ inputs.release_tag || github.ref_name || github.event.release.tag_name }}
+          files: dist/*.deb
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
