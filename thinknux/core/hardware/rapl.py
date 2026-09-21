@@ -58,14 +58,14 @@ def get_rapl_limits() -> RaplLimits:
 
 def set_rapl_limits(pl1_watts: float, pl2_watts: float) -> Tuple[bool, Optional[str]]:
     """Configure PL1 (sustained) and PL2 (burst) power caps in Watts."""
-    if not is_rapl_supported():
-        return False, "Intel RAPL is not supported on this platform"
-
     if pl1_watts <= 0 or pl2_watts <= 0:
         return False, "Power limits must be greater than 0 Watts"
 
     if pl1_watts > pl2_watts:
         return False, "PL1 sustained limit cannot exceed PL2 burst limit"
+
+    if not is_rapl_supported():
+        return False, "Intel RAPL is not supported on this platform"
 
     pl1_uw = str(int(pl1_watts * 1_000_000))
     pl2_uw = str(int(pl2_watts * 1_000_000))

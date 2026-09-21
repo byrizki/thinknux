@@ -37,11 +37,12 @@ jobs:
             python3-cairo \
             gir1.2-gtk-4.0 \
             gir1.2-adw-1 \
-            python3-psutil
+            python3-psutil \
+            xvfb
 
       - name: Run automated test suite
         run: |
-          python3 -m unittest discover -s tests -p "test_*.py" -v
+          xvfb-run -a python3 -m unittest discover -s tests -p "test_*.py" -v
 
       - name: Determine package version
         id: get_version

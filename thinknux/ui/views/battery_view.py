@@ -1,6 +1,7 @@
 """Battery health monitoring and charge threshold configuration view."""
 
 import threading
+from typing import Optional
 
 import gi
 
